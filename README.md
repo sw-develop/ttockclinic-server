@@ -24,3 +24,12 @@ mysql> grant all on ttockclinic_db.* to 'admin'@'%';
 
 터미널에서 mysql 접속 후 springboot와 연결할 데이터베이스와 해당 데이터베이스 사용자 생성 및 권한 부여 수행
 
+---
+
+### 코드 추가 위치
+
+```text
+src/main/java/com/ewhaenonymous/ttockclinic 
+```
+
+-> com.ewhaenonymous.ttockclinic 패키지 내에 코드 생성하면 됨! 
