@@ -33,3 +33,7 @@ src/main/java/com/ewhaenonymous/ttockclinic
 ```
 
 -> com.ewhaenonymous.ttockclinic 패키지 내에 코드 생성하면 됨! 
+
+-> API 1차 설계 완료
+-> DB 1차 설계 완료
+
