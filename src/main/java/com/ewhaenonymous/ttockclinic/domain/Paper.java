@@ -1,6 +1,5 @@
-package com.ewhaenonymous.ttockclinic.papers;
+package com.ewhaenonymous.ttockclinic.domain;
 
-import com.ewhaenonymous.ttockclinic.BaseTimeEntity;
 import lombok.Getter;
 import lombok.Setter;
 
