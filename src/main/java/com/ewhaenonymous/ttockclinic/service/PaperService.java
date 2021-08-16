@@ -1,6 +1,7 @@
 package com.ewhaenonymous.ttockclinic.service;
 
 import com.ewhaenonymous.ttockclinic.domain.Paper;
+import com.ewhaenonymous.ttockclinic.exception.DuplicatedUserException;
 import com.ewhaenonymous.ttockclinic.exception.InvalidQrException;
 import com.ewhaenonymous.ttockclinic.exception.ResourceNotFoundException;
 import com.ewhaenonymous.ttockclinic.payload.ResponseMessage;
@@ -28,8 +29,15 @@ public class PaperService {
                 .orElseThrow(() -> new ResourceNotFoundException("Paper", "id", id));
     }
 
+    public void validateUnDuplicatedUser(String phone){
+        if(paperRepository.findByPhone(phone).isPresent())
+            new DuplicatedUserException(ResponseMessage.DUPLICATED_USER);
+    }
+
     @Transactional
     public PaperResponse createNewPaper(CreatePaperRequest paperRequest){
+        validateUnDuplicatedUser(paperRequest.getPhone());
+
         Paper paper = paperRepository.save(paperRequest.toEntity());
         return new PaperResponse(paper);
     }
