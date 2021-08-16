@@ -19,11 +19,11 @@ public class Clinic {
     @Column(name = "clinic_id")
     private Long id;
 
-    @Column(name = "clinic_name", nullable = false)
-    private String cname;
+    @Column(name = "longitude", nullable = false)
+    private String longtitude;
 
-    @Column(name = "loc", nullable = false)
-    private String loc;
+    @Column(name = "latitude", nullable = false) //위도
+    private String latitutde;
 
     @Column(name = "waitings", nullable = false)
     private int waitings = 1;

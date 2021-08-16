@@ -17,12 +17,13 @@ public class ClinicController {
 
     @PostMapping("/papers")
     public ResponseEntity<?> create(@RequestBody @Valid Clinic clinic){
-        clinicService.firstc(clinic);
+        clinicService.createNewClinic(clinic);
         return ResponseEntity<>()
     }
 
     @GetMapping("/clinics/waitings")
     int returnwatings(@RequestBody @Valid Clinic clinic){
+
         return clinicService.returnwaiting(clinic);
     }
 }
