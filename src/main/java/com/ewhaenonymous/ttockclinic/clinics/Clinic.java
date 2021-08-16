@@ -16,10 +16,10 @@ import javax.persistence.*;
 public class Clinic {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column(name = "clinicid")
-    private Long clinicid;
+    @Column(name = "clinic_id")
+    private Long id;
 
-    @Column(name = "cname", nullable = false)
+    @Column(name = "clinic_name", nullable = false)
     private String cname;
 
     @Column(name = "loc", nullable = false)

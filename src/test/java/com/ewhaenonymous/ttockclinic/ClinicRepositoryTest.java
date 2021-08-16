@@ -20,7 +20,7 @@ public class ClinicRepositoryTest extends TtockclinicApplicationTests{
     private ClinicRepository clinicRepository;
     @Autowired
     private ClinicService clinicService;
-  /*  @Test
+    @Test
     public void create(){
         Clinic c =
                 Clinic.builder()
@@ -32,7 +32,7 @@ public class ClinicRepositoryTest extends TtockclinicApplicationTests{
         Clinic newC = clinicRepository.save(c);
         log.info(newC.toString());
     }
-*/
+
     @Test
     public void read(){
         Optional<Clinic> c = clinicRepository.findById(2L);

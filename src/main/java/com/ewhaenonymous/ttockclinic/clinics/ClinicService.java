@@ -16,7 +16,7 @@ public class ClinicService {
     public Long firstc(Clinic clinic){
         validateDuplicateClinic(clinic); //중복 검사
         clinicRepository.save(clinic);  //중복이 아닌 경우 save
-        return clinic.getClinicid();
+        return clinic.getId();
     }
 
     public void upwaiting(Clinic clinic){

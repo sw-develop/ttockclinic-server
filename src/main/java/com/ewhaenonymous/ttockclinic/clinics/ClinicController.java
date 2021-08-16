@@ -15,7 +15,7 @@ public class ClinicController {
         clinicService.firstc(clinic);
     }
 
-    @PatchMapping("v1/papers/{paperid}/usages")
+/*    @PatchMapping("v1/papers/{paperid}/usages")
     public @ResponseBody
     void update(@RequestBody Clinic clinic, @RequestBody Paper paper){
         if(paper.usages == 1){
@@ -27,7 +27,7 @@ public class ClinicController {
         else{
             throw new IllegalStateException("Error");
         }
-    }
+    }*/
 
     @GetMapping("v1/clinics?cname={cname}")
     public @ResponseBody
