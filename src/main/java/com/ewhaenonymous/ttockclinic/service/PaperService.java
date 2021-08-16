@@ -16,8 +16,8 @@ public class PaperService {
     private final PaperRepository paperRepository;
 
     public Paper findPaperByPhoneAndName(String phone, String name){
-        Paper paper = paperRepository.findByPhoneAndName(phone, name).orElse(null);
-        return paper;
+        return paperRepository.findByPhoneAndName(phone, name)
+                .orElseThrow(() -> new ResourceNotFoundException("Paper", "phone and name", null));
     }
 
     public Paper findPaperById(Long id){
