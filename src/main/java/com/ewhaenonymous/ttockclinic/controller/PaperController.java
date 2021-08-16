@@ -31,7 +31,7 @@ public class PaperController{
         return new ResponseEntity<>(paperResponse, HttpStatus.OK);
     }
 
-    @PatchMapping("/paper/{paperId}/qr-usage-count")
+    @PatchMapping("/paper/qr-usage-count")
     public ResponseEntity<?> updatePaper(@RequestBody @Valid UpdatePaperRequest paperRequest){
         PaperResponse paperResponse = paperService.updateQrUsageCount(paperRequest);
         return new ResponseEntity<>(paperResponse, HttpStatus.OK);
