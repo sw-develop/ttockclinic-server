@@ -62,12 +62,28 @@ public class PaperService {
     }
 
     @Transactional
+    public void updateClinicWaitings(Clinic clinic, int qrUsageCount){
+        if(qrUsageCount == 1){ //현장예약 완료 - 대기자 수 증가 시키기
+            clinic.setWaitings(clinic.getWaitings() + 1);
+        }
+        else if(qrUsageCount == 2){ //검사 완료 - 대기자 수 감소 시키기
+            if(clinic.getWaitings() != 0) //대기자 수가 0이 아닐 때
+                clinic.setWaitings(clinic.getWaitings() - 1);
+        }
+        clinicRepository.save(clinic);
+    }
+
+    @Transactional
     public PaperResponse updateQrUsageCount(UpdatePaperRequest paperRequest){
         Paper paper = this.findPaperById(paperRequest.getId());
         validateValidQr(paper.getQrUsageCount());
 
         paper.setQrUsageCount(paper.getQrUsageCount() + 1);
         Paper updatedPaper = paperRepository.save(paper);
+
+        //선별진료소 대기자 수 업데이트
+        this.updateClinicWaitings(updatedPaper.getClinic(), updatedPaper.getQrUsageCount());
+
         return new PaperResponse(updatedPaper);
     }
 
