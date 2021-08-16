@@ -20,7 +20,7 @@ public class Clinic {
     private Long id;
 
     @Column(name = "longitude", nullable = false)
-    private String longtitude;
+    private String longitude;
 
     @Column(name = "latitude", nullable = false) //위도
     private String latitutde;
