@@ -23,7 +23,7 @@ public class Clinic {
     private String longitude;
 
     @Column(name = "latitude", nullable = false) //위도
-    private String latitutde;
+    private String latitude;
 
     @Column(name = "waitings", nullable = false)
     private int waitings = 1;
