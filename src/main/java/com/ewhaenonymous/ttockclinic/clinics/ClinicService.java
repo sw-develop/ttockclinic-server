@@ -1,4 +1,4 @@
-package com.ewhaenonymous.ttockclinic;
+package com.ewhaenonymous.ttockclinic.clinics;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
