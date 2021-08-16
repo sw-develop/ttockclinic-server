@@ -8,6 +8,10 @@ public class CreateClinicRequest {
     private String latitude;
     @NotNull
     private String longitude;
+    @NotNull
+    private String name;
+    @NotNull
+    private String phone;
 
     public Clinic toEntity(){
         return Clinic.builder()
