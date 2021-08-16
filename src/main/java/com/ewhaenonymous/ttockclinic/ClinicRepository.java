@@ -9,10 +9,10 @@ import java.util.List;
 
 @Transactional
 public interface ClinicRepository extends JpaRepository<Clinic, Long> {
-    List<Clinic> findByNameAndLoc(String cname, String loc);
+    List<Clinic> findByCnameAndLoc(String cname, String loc);
 
     @Transactional
     @Modifying
-    @Query("UPDATE Clinic c SET c.waitings = :to WHERE c.waitings = :from")
-    int updateWaitings(int from, int to);
+    @Query("UPDATE Clinic c SET c.waitings = :to")
+    int updateWaitings(int to);
 }
