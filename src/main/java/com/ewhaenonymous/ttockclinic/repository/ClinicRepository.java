@@ -1,5 +1,6 @@
-package com.ewhaenonymous.ttockclinic.clinics;
+package com.ewhaenonymous.ttockclinic.repository;
 
+import com.ewhaenonymous.ttockclinic.domain.Clinic;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

@@ -1,4 +1,4 @@
-package com.ewhaenonymous.ttockclinic.clinics;
+package com.ewhaenonymous.ttockclinic.domain;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 

@@ -1,8 +1,8 @@
 package com.ewhaenonymous.ttockclinic;
 
-import com.ewhaenonymous.ttockclinic.clinics.Clinic;
-import com.ewhaenonymous.ttockclinic.clinics.ClinicRepository;
-import com.ewhaenonymous.ttockclinic.clinics.ClinicService;
+import com.ewhaenonymous.ttockclinic.domain.Clinic;
+import com.ewhaenonymous.ttockclinic.repository.ClinicRepository;
+import com.ewhaenonymous.ttockclinic.service.ClinicService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

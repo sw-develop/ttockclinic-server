@@ -1,5 +1,7 @@
-package com.ewhaenonymous.ttockclinic.clinics;
+package com.ewhaenonymous.ttockclinic.controller;
 
+import com.ewhaenonymous.ttockclinic.service.ClinicService;
+import com.ewhaenonymous.ttockclinic.domain.Clinic;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

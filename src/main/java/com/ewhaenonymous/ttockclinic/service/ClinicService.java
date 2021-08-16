@@ -1,5 +1,7 @@
-package com.ewhaenonymous.ttockclinic.clinics;
+package com.ewhaenonymous.ttockclinic.service;
 
+import com.ewhaenonymous.ttockclinic.repository.ClinicRepository;
+import com.ewhaenonymous.ttockclinic.domain.Clinic;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
