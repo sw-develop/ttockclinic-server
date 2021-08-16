@@ -12,5 +12,5 @@ import java.util.Optional;
 
 @Transactional
 public interface ClinicRepository extends CrudRepository<Clinic, Long> {
-    Optional<Clinic> findByLatitutdeAndLongtitude(String latitude, String longtitude);
+    Optional<Clinic> findByLatitudeAndLongitude(String latitude, String longitude);
 }
