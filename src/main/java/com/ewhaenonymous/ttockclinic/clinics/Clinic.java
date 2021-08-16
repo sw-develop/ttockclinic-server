@@ -26,5 +26,5 @@ public class Clinic {
     private String loc;
 
     @Column(name = "waitings", nullable = false)
-    private int waitings = 0;
+    private int waitings = 1;
 }

@@ -19,17 +19,6 @@ public class ClinicService {
         return clinic.getId();
     }
 
-    public void upwaiting(Clinic clinic){
-        clinicRepository.updateWaitings(clinic.getWaitings() + 1);
-    }
-
-    public void downwaiting(Clinic clinic){
-        if(clinic.getWaitings() == 0){
-            throw new IllegalStateException("대기자가 없습니다.");
-        }
-        clinicRepository.updateWaitings(clinic.getWaitings() - 1);
-    }
-
     public int returnwaiting(Clinic clinic){
         List<Clinic> c = clinicRepository.findByCnameAndLoc(clinic.getCname(), clinic.getLoc());
         return c.get(0).getWaitings();
