@@ -1,6 +1,7 @@
 package com.ewhaenonymous.ttockclinic.domain;
 
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -23,6 +24,7 @@ public class Paper extends BaseTimeEntity {
     @Column(name = "qr_usage_count")
     private int qrUsageCount;
 
+    @CreatedDate
     private LocalDate date;
 
     @ManyToOne(fetch = FetchType.LAZY)
