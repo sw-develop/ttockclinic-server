@@ -1,6 +1,5 @@
 package com.ewhaenonymous.ttockclinic.controller;
 
-import com.ewhaenonymous.ttockclinic.payload.request.CreatePaperRequest;
 import com.ewhaenonymous.ttockclinic.payload.request.GetPaperRequest;
 import com.ewhaenonymous.ttockclinic.payload.request.UpdatePaperRequest;
 import com.ewhaenonymous.ttockclinic.payload.response.PaperResponse;
@@ -19,11 +18,13 @@ public class PaperController{
 
     private final PaperService paperService;
 
+    /*
     @PostMapping("/paper")
     public ResponseEntity<?> createPaper(@RequestBody @Valid CreatePaperRequest paperRequest){
         PaperResponse paperResponse = paperService.createNewPaper(paperRequest);
         return new ResponseEntity<>(paperResponse, HttpStatus.OK);
     }
+     */
 
     @GetMapping("/paper")
     public ResponseEntity<?> getPaper(@RequestBody @Valid GetPaperRequest paperRequest){
