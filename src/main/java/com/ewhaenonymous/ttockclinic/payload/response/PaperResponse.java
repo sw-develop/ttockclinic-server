@@ -1,5 +1,6 @@
 package com.ewhaenonymous.ttockclinic.payload.response;
 
+import com.ewhaenonymous.ttockclinic.domain.Clinic;
 import com.ewhaenonymous.ttockclinic.domain.Paper;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
