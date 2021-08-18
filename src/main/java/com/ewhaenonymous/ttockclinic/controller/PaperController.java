@@ -18,14 +18,6 @@ public class PaperController{
 
     private final PaperService paperService;
 
-    /*
-    @PostMapping("/paper")
-    public ResponseEntity<?> createPaper(@RequestBody @Valid CreatePaperRequest paperRequest){
-        PaperResponse paperResponse = paperService.createNewPaper(paperRequest);
-        return new ResponseEntity<>(paperResponse, HttpStatus.OK);
-    }
-     */
-
     @GetMapping("/paper")
     public ResponseEntity<?> getPaper(@RequestBody @Valid GetPaperRequest paperRequest){
         PaperResponse paperResponse = paperService.findPaperByPhoneAndName(paperRequest.getPhone(), paperRequest.getName());
