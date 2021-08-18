@@ -27,8 +27,8 @@ public class ClinicService {
         return new ClinicResponse(clinic);
     }
 
-    public ClinicResponse returnwaiting(Clinic clinic){
-        Optional<Clinic> c = clinicRepository.findByLatitudeAndLongitude(clinic.getLatitude(), clinic.getLongitude());
+    public ClinicResponse returnwaiting(String latitude, String longitude){
+        Optional<Clinic> c = clinicRepository.findByLatitudeAndLongitude(latitude, longitude);
         return new ClinicResponse(c.get());
     }
 
