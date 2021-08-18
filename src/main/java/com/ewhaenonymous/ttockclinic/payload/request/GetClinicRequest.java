@@ -6,5 +6,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class GetClinicRequest {
-    private int waitings;
+    private String longitude;
+    private String latitude;
 }
