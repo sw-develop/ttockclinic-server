@@ -34,8 +34,8 @@ public class PaperService {
     }
 
     public void validateUnDuplicatedUser(String phone){
-        if(paperRepository.findByPhone(phone).isPresent())
-            new DuplicatedUserException(ResponseMessage.DUPLICATED_USER);
+        if(paperRepository.findByPhone(phone).isPresent() && paperRepository.findByPhone(phone).get().getDeleted().equals("N"))
+            throw new DuplicatedUserException(ResponseMessage.DUPLICATED_USER);
     }
 
     public Paper paperRequestToEntity(CreateClinicRequest clinicRequest){
@@ -51,7 +51,6 @@ public class PaperService {
     @Transactional
     public PaperResponse createNewPaper(CreateClinicRequest clinicRequest){
         validateUnDuplicatedUser(clinicRequest.getPhone());
-
         Paper paper = paperRepository.save(this.paperRequestToEntity(clinicRequest));
         return new PaperResponse(paper);
     }
@@ -79,6 +78,9 @@ public class PaperService {
         validateValidQr(paper.getQrUsageCount());
 
         paper.setQrUsageCount(paper.getQrUsageCount() + 1);
+        if (paper.getQrUsageCount() == 2){
+            paper.setDeleted("Y");
+        }
         Paper updatedPaper = paperRepository.save(paper);
 
         //선별진료소 대기자 수 업데이트
