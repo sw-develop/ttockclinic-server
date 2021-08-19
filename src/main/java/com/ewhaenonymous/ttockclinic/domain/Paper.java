@@ -27,6 +27,9 @@ public class Paper extends BaseTimeEntity {
     @CreatedDate
     private LocalDate date;
 
+    @Column(name = "delete")
+    private String deleted = "N";
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "clinic_id") //FK - 연관관계 주인
     private Clinic clinic;
