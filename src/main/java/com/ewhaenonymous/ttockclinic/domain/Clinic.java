@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Builder
 @Table(name="clinics")
 
-public class Clinic {
+public class Clinic extends BaseTimeEntity{
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(name = "clinic_id")
@@ -22,7 +22,7 @@ public class Clinic {
     @Column(name = "longitude", nullable = false)
     private String longitude;
 
-    @Column(name = "latitude", nullable = false) //위도
+    @Column(name = "latitude", nullable = false)
     private String latitude;
 
     @Column(name = "waitings", nullable = false)
