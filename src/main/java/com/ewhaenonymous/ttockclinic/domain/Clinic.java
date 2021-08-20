@@ -1,7 +1,6 @@
 package com.ewhaenonymous.ttockclinic.domain;
-import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 
+import lombok.*;
 import javax.persistence.*;
 
 @Getter
@@ -26,5 +25,6 @@ public class Clinic extends BaseTimeEntity{
     private String latitude;
 
     @Column(name = "waitings", nullable = false)
-    private int waitings = 1;
+    private int waitings = 0;
+
 }
