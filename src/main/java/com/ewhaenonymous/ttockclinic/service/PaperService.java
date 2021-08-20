@@ -22,9 +22,16 @@ public class PaperService {
     private final PaperRepository paperRepository;
     private final ClinicRepository clinicRepository;
 
-    public PaperResponse findPaperByPhoneAndName(String phone, String name){
+    //전화번호&이름&deletedN의 객체가 있는지 찾아야 함
+    public PaperResponse findPaperByPhoneAndName(String phone, String name) {
         PaperResponse paperResponse = new PaperResponse(paperRepository.findByPhoneAndName(phone, name)
                 .orElseThrow(() -> new ResourceNotFoundException("Paper", "phone and name", null)));
+        return paperResponse;
+    }
+
+    public PaperResponse findPaperByPhoneAndNameAndDeleted(String phone, String name, String deleted){
+        PaperResponse paperResponse = new PaperResponse(paperRepository.findByPhoneAndNameAndDeleted(phone, name, deleted)
+                .orElseThrow(() -> new ResourceNotFoundException("Paper", "phone, name, deleted", null)));
         return paperResponse;
     }
 
@@ -33,6 +40,7 @@ public class PaperService {
                 .orElseThrow(() -> new ResourceNotFoundException("Paper", "id", id));
     }
 
+    //궁금 - 유효한 사용자 체크 시 핸드폰번호 & 오늘 날짜에 해당하는 객체가 있는지만 체크하면 되는 것 아닌가?
     public void validateUnDuplicatedUser(String phone){
         if(paperRepository.findByPhone(phone).isPresent() && paperRepository.findByPhone(phone).get().getDeleted().equals("N"))
             throw new DuplicatedUserException(ResponseMessage.DUPLICATED_USER);
@@ -75,7 +83,7 @@ public class PaperService {
     @Transactional
     public PaperResponse updateQrUsageCount(UpdatePaperRequest paperRequest){
         Paper paper = this.findPaperById(paperRequest.getId());
-        validateValidQr(paper.getQrUsageCount());
+        validateValidQr(paper.getQrUsageCount()); //확인) 앱(프론트)에서 처리해 줄 수 있을 듯
 
         paper.setQrUsageCount(paper.getQrUsageCount() + 1);
         if (paper.getQrUsageCount() == 2){
