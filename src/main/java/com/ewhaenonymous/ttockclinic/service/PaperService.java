@@ -24,16 +24,9 @@ public class PaperService {
     private final PaperRepository paperRepository;
     private final ClinicRepository clinicRepository;
 
-    public PaperResponse findPaperByPhoneAndName(String phone, String name) {
-        PaperResponse paperResponse = new PaperResponse(paperRepository.findByPhoneAndName(phone, name)
-                .orElseThrow(() -> new ResourceNotFoundException("Paper", "phone and name", null)));
-        return paperResponse;
-    }
-
     public PaperResponse findPaperByPhoneAndNameAndDeleted(String phone, String name, String deleted){
-        PaperResponse paperResponse = new PaperResponse(paperRepository.findByPhoneAndNameAndDeleted(phone, name, deleted)
+        return new PaperResponse(paperRepository.findByPhoneAndNameAndDeleted(phone, name, deleted)
                 .orElseThrow(() -> new ResourceNotFoundException("Paper", "phone, name, deleted", null)));
-        return paperResponse;
     }
 
     public Paper findPaperById(Long id){
@@ -64,7 +57,7 @@ public class PaperService {
         return new PaperResponse(paper);
     }
 
-    public void validateValidQr(int qrUsageCount){ //QR 유효성 검사 메서드
+    public void validateQrByUsageCount(int qrUsageCount){ //QR 유효성 검사 메서드
         if(qrUsageCount >= 2)
             throw new InvalidQrException(ResponseMessage.INVALID_QR);
     }
@@ -81,10 +74,14 @@ public class PaperService {
         clinicRepository.save(clinic);
     }
 
+    public void validateUserByIdAndDeleted(Long id, String deleted){
+
+    }
+
     @Transactional
     public PaperResponse updateQrUsageCount(UpdatePaperRequest paperRequest){
         Paper paper = this.findPaperById(paperRequest.getId());
-        validateValidQr(paper.getQrUsageCount()); //확인) 앱(프론트)에서 처리해 줄 수 있을 듯
+        validateQrByUsageCount(paper.getQrUsageCount()); //확인) 앱(프론트)에서 처리해 줄 수 있을 듯
 
         //추가사항: qr 유효성 처리가 아니라 전달된 id랑 삭제 여부를 동시에 만족하는 객체가 있는지에 대한 유효성 처리를 해줘야 함
         //qr 유효성 처리는 어차피 앱(프론트)에서 1차적으로 해주니까 서버에서는 해당 객체가 실제 존재하는 애인지를 보면 됨
