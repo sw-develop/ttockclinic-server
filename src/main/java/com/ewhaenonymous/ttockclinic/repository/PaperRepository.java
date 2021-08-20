@@ -10,5 +10,6 @@ public interface PaperRepository extends CrudRepository<Paper, Long> {
 
     Optional<Paper> findByPhoneAndNameAndDeleted(String phone, String name, String deleted);
     Optional<Paper> findByPhoneAndDate(String phone, LocalDate date);
+    Optional<Paper> findByIdAndDeleted(Long id, String deleted);
 
 }
