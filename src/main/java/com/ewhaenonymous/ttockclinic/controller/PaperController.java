@@ -20,7 +20,7 @@ public class PaperController{
 
     @GetMapping("/paper")
     public ResponseEntity<?> getPaper(@RequestBody @Valid GetPaperRequest paperRequest){
-        PaperResponse paperResponse = paperService.findPaperByPhoneAndName(paperRequest.getPhone(), paperRequest.getName());
+        PaperResponse paperResponse = paperService.findPaperByPhoneAndNameAndDeleted(paperRequest.getPhone(), paperRequest.getName(), "N");
         return new ResponseEntity<>(paperResponse, HttpStatus.OK);
     }
 
