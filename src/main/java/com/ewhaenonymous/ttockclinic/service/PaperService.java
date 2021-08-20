@@ -4,6 +4,7 @@ import com.ewhaenonymous.ttockclinic.domain.Clinic;
 import com.ewhaenonymous.ttockclinic.domain.Paper;
 import com.ewhaenonymous.ttockclinic.exception.DuplicatedUserException;
 import com.ewhaenonymous.ttockclinic.exception.InvalidQrException;
+import com.ewhaenonymous.ttockclinic.exception.InvalidUserException;
 import com.ewhaenonymous.ttockclinic.exception.ResourceNotFoundException;
 import com.ewhaenonymous.ttockclinic.payload.ResponseMessage;
 import com.ewhaenonymous.ttockclinic.payload.request.CreateClinicRequest;
@@ -75,16 +76,17 @@ public class PaperService {
     }
 
     public void validateUserByIdAndDeleted(Long id, String deleted){
-
+        if(paperRepository.findByIdAndDeleted(id, deleted).isEmpty())
+            throw new InvalidUserException(ResponseMessage.INVALID_USER);
     }
 
     @Transactional
     public PaperResponse updateQrUsageCount(UpdatePaperRequest paperRequest){
-        Paper paper = this.findPaperById(paperRequest.getId());
-        validateQrByUsageCount(paper.getQrUsageCount()); //확인) 앱(프론트)에서 처리해 줄 수 있을 듯
-
         //추가사항: qr 유효성 처리가 아니라 전달된 id랑 삭제 여부를 동시에 만족하는 객체가 있는지에 대한 유효성 처리를 해줘야 함
         //qr 유효성 처리는 어차피 앱(프론트)에서 1차적으로 해주니까 서버에서는 해당 객체가 실제 존재하는 애인지를 보면 됨
+        validateUserByIdAndDeleted(paperRequest.getId(), paperRequest.getDeleted());
+
+        Paper paper = this.findPaperById(paperRequest.getId());
 
         paper.setQrUsageCount(paper.getQrUsageCount() + 1);
         if (paper.getQrUsageCount() == 2){
