@@ -12,4 +12,6 @@ public final class UpdatePaperRequest {
     @NotNull
     private Long id;
 
+    @NotNull
+    private String deleted;
 }
