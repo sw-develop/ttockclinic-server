@@ -15,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+
 @Service
 @RequiredArgsConstructor
 public class PaperService {
@@ -22,7 +24,6 @@ public class PaperService {
     private final PaperRepository paperRepository;
     private final ClinicRepository clinicRepository;
 
-    //전화번호&이름&deletedN의 객체가 있는지 찾아야 함
     public PaperResponse findPaperByPhoneAndName(String phone, String name) {
         PaperResponse paperResponse = new PaperResponse(paperRepository.findByPhoneAndName(phone, name)
                 .orElseThrow(() -> new ResourceNotFoundException("Paper", "phone and name", null)));
@@ -40,9 +41,9 @@ public class PaperService {
                 .orElseThrow(() -> new ResourceNotFoundException("Paper", "id", id));
     }
 
-    //궁금 - 유효한 사용자 체크 시 핸드폰번호 & 오늘 날짜에 해당하는 객체가 있는지만 체크하면 되는 것 아닌가?
+    //유효한 사용자 체크 시 핸드폰번호 & 오늘 날짜에 해당하는 객체가 있는지 체크해줘야 함
     public void validateUnDuplicatedUser(String phone){
-        if(paperRepository.findByPhone(phone).isPresent() && paperRepository.findByPhone(phone).get().getDeleted().equals("N"))
+        if(paperRepository.findByPhoneAndDate(phone, LocalDate.now()).isPresent())
             throw new DuplicatedUserException(ResponseMessage.DUPLICATED_USER);
     }
 
@@ -84,6 +85,9 @@ public class PaperService {
     public PaperResponse updateQrUsageCount(UpdatePaperRequest paperRequest){
         Paper paper = this.findPaperById(paperRequest.getId());
         validateValidQr(paper.getQrUsageCount()); //확인) 앱(프론트)에서 처리해 줄 수 있을 듯
+
+        //추가사항: qr 유효성 처리가 아니라 전달된 id랑 삭제 여부를 동시에 만족하는 객체가 있는지에 대한 유효성 처리를 해줘야 함
+        //qr 유효성 처리는 어차피 앱(프론트)에서 1차적으로 해주니까 서버에서는 해당 객체가 실제 존재하는 애인지를 보면 됨
 
         paper.setQrUsageCount(paper.getQrUsageCount() + 1);
         if (paper.getQrUsageCount() == 2){
