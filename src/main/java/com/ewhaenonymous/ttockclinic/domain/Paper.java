@@ -29,7 +29,6 @@ public class Paper extends BaseTimeEntity {
     @CreatedDate
     private LocalDate date;
 
-    @Column(name = "delete")
     private String deleted = "N";
 
     @ManyToOne(fetch = FetchType.LAZY)
