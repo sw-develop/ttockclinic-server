@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @Getter @Setter
 @Builder(access = AccessLevel.PUBLIC)
 @NoArgsConstructor
+@AllArgsConstructor
 public class Paper extends BaseTimeEntity {
 
     @Id
@@ -24,10 +25,10 @@ public class Paper extends BaseTimeEntity {
     @Column(name = "qr_usage_count")
     private int qrUsageCount;
 
+    //이게 객체 생성 날짜랑 똑같은 거 아닌가?
     @CreatedDate
     private LocalDate date;
 
-    @Column(name = "delete")
     private String deleted = "N";
 
     @ManyToOne(fetch = FetchType.LAZY)
