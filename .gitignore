@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### RESOURCES ###
+application-dev.yml
+application-real.yml
