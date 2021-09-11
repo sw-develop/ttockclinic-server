@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
-
+/*
 @SpringBootTest
 @Slf4j
 
@@ -77,3 +77,4 @@ public class ClinicRepositoryTest extends TtockclinicApplicationTests{
         assertEquals("이미 존재하는 선별진료소입니다.", thrown.getMessage());
     }
 }
+*/
