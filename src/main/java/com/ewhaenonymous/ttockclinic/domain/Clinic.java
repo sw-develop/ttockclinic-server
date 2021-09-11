@@ -24,6 +24,7 @@ public class Clinic extends BaseTimeEntity{
     @Column(name = "latitude", nullable = false)
     private String latitude;
 
+    @Builder.Default
     @Column(name = "waitings", nullable = false)
     private int waitings = 0;
 
