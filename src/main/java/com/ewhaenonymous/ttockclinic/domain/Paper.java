@@ -32,7 +32,7 @@ public class Paper extends BaseTimeEntity {
     @Builder.Default
     private String deleted = "N";
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "clinic_id") //FK - 연관관계 주인
     private Clinic clinic;
 }
