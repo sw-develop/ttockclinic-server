@@ -33,8 +33,8 @@ public class ClinicService {
     }
 
     public ClinicResponse returnWaiting(String latitude, String longitude){
-        Clinic c = clinicRepository.findByLatitudeAndLongitude(latitude, longitude).orElse(
-                clinicRepository.save(this.clinicRequestToEntity(latitude, longitude))
+        Clinic c = clinicRepository.findByLatitudeAndLongitude(latitude, longitude).orElseGet(
+                () -> clinicRepository.save(this.clinicRequestToEntity(latitude, longitude))
         );
         return new ClinicResponse(c);
     }
