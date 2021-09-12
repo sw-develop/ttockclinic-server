@@ -25,10 +25,11 @@ public class ClinicService {
                 .build();
     }
 
-    public ClinicResponse createNewClinic(CreateClinicRequest clinicRequest){
-        validateDuplicateClinic(clinicRequest.getLatitude(), clinicRequest.getLongitude());
-        Clinic clinic = clinicRepository.save(this.clinicRequestToEntity(clinicRequest.getLatitude(), clinicRequest.getLongitude()));
-        return new ClinicResponse(clinic);
+    public void createNewClinic(CreateClinicRequest clinicRequest){
+        boolean flag = validateDuplicateClinic(clinicRequest.getLatitude(), clinicRequest.getLongitude());
+        if(!flag) {
+            Clinic clinic = clinicRepository.save(this.clinicRequestToEntity(clinicRequest.getLatitude(), clinicRequest.getLongitude()));
+        }
     }
 
     public ClinicResponse returnWaiting(String latitude, String longitude){
@@ -38,10 +39,12 @@ public class ClinicService {
         return new ClinicResponse(c);
     }
 
-    private void validateDuplicateClinic(String latitude, String longitude){    //선별진료소 중복 검사
+    private boolean validateDuplicateClinic(String latitude, String longitude){    //선별진료소 중복 검사
         Optional<Clinic> findClinic = clinicRepository.findByLatitudeAndLongitude(latitude, longitude);
         if(findClinic.isPresent()){
-            throw new IllegalStateException("이미 존재하는 선별진료소입니다.");
+            System.out.print("이미 존재하는 선별진료소입니다.");
+            return true;
         }
+        return false;
     }
 }
