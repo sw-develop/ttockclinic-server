@@ -1,6 +1,6 @@
 FROM openjdk:11-jre-slim as builder
 WORKDIR app
-ARG JAR_FILE=build/libs/*.jar
+ARG JAR_FILE=build/libs/*-SNAPSHOT.jar
 COPY ${JAR_FILE} application.jar
 RUN java -Djarmode=layertools -jar application.jar extract
 
