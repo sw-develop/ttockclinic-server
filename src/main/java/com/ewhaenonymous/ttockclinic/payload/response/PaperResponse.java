@@ -17,9 +17,10 @@ public class PaperResponse {
     private String name;
     private String phone;
     private LocalDate date;
+    private String deleted;
     private Clinic clinic;
 
     public PaperResponse(Paper paper){
-        this(paper.getId(), paper.getName(), paper.getPhone(), paper.getDate(), paper.getClinic());
+        this(paper.getId(), paper.getName(), paper.getPhone(), paper.getDate(), paper.getDeleted(), paper.getClinic());
     }
 }
