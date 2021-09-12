@@ -19,8 +19,6 @@ public class PaperResponse {
     private LocalDate date;
     private Clinic clinic;
 
-    //추후 수정 계획 - Clinic 정보도 반환하도록
-
     public PaperResponse(Paper paper){
         this(paper.getId(), paper.getName(), paper.getPhone(), paper.getDate(), paper.getClinic());
     }
