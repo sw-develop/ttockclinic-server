@@ -40,4 +40,5 @@ out/
 application-real.yml
 
 ### CERTBOT ###
-/data/certbot/
+/data/certbot/conf/*
+/data/certbot/www/*
