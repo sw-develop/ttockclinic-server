@@ -38,3 +38,7 @@ out/
 
 ### RESOURCES ###
 application-real.yml
+
+### CERTBOT ###
+/data/certbot/conf/*
+/data/certbot/www/*
