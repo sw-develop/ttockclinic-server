@@ -38,3 +38,6 @@ out/
 
 ### RESOURCES ###
 application-real.yml
+
+### CERTBOT ###
+/data/certbot
