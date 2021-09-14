@@ -10,11 +10,16 @@ services:
 
   nginx:
     container_name: ttockclinic-nginx
-    image: nginx
+    image: nginx:1.15-alpine
     restart: always
     ports:
     - 80:80
+    - 443:443
     volumes:
     - ./nginx/conf.d:/etc/nginx/conf.d
     depends_on:
     - app
+
+  certbot:
+    container_name: ttockclinic-certbot
+    image: certbot/certbot
