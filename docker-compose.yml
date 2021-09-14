@@ -25,7 +25,7 @@ services:
 
   certbot:
     container_name: ttockclinic-certbot
-    image: certbot/certbot
+    image: certbot/certbot:v0.36.0
     restart: always
     volumes:
       - ./data/certbot/conf:/etc/letsencrypt
