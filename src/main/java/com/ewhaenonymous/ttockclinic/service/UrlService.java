@@ -18,12 +18,19 @@ import java.net.URL;
 @Transactional
 @RequiredArgsConstructor
 public class UrlService {
-    public Object covidApi() throws JsonProcessingException {
+    public Object xmlToJson(StringBuffer result) throws JsonProcessingException { // XML을 JSON으로 변환시키는 메서드
+        String xml = result.toString();
+        JSONObject jObject = XML.toJSONObject(xml);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        Object json = mapper.readValue(jObject.toString(), Object.class);
+        return json;
+    }
+
+    public StringBuffer makeUrlConnection(String urlStr){
         StringBuffer result = new StringBuffer();
         try{
-            String urlstr = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson?" +
-                    "serviceKey=x7h3QsoSTvqMkdINB49pnMFwFob%2BGJk5XPJPBNLtTt3GErqxwAHg%2F2Au%2FgUlIA%2FKcjlrK%2BbhRPRJI7AJnGh5Ag%3D%3D";
-            URL url = new URL(urlstr);
+            URL url = new URL(urlStr);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
 
@@ -35,44 +42,24 @@ public class UrlService {
             }
             urlConnection.disconnect();
 
-        }
-        catch(Exception e){
+        } catch(Exception e){
             e.getMessage();
         }
-        //System.out.println(result);
-        String xml = result.toString();
-        JSONObject jObject = XML.toJSONObject(xml);
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.enable(SerializationFeature.INDENT_OUTPUT);
-        Object json = mapper.readValue(jObject.toString(), Object.class);
-        return json;
+
+        return result;
+    }
+
+    public Object covidApi() throws JsonProcessingException {
+        String urlStr = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson?" +
+                "serviceKey=x7h3QsoSTvqMkdINB49pnMFwFob%2BGJk5XPJPBNLtTt3GErqxwAHg%2F2Au%2FgUlIA%2FKcjlrK%2BbhRPRJI7AJnGh5Ag%3D%3D";
+        StringBuffer result = makeUrlConnection(urlStr);
+        return xmlToJson(result);
     }
 
     public Object clinicApi() throws JsonProcessingException {
-        StringBuffer result = new StringBuffer();
-        try{
-            String urlstr = "http://apis.data.go.kr/B551182/pubReliefHospService/getpubReliefHospList?" +
-                    "ServiceKey=x7h3QsoSTvqMkdINB49pnMFwFob%2BGJk5XPJPBNLtTt3GErqxwAHg%2F2Au%2FgUlIA%2FKcjlrK%2BbhRPRJI7AJnGh5Ag%3D%3D";
-            URL url = new URL(urlstr);
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("GET");
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
-
-            String returnLine;
-            while((returnLine = br.readLine()) != null) {
-                result.append(returnLine + "\n");
-            }
-        }
-        catch(Exception e){
-            e.getMessage();
-        }
-        //System.out.println(result);
-        String xml = result.toString();
-        JSONObject jObject = XML.toJSONObject(xml);
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.enable(SerializationFeature.INDENT_OUTPUT);
-        Object json = mapper.readValue(jObject.toString(), Object.class);
-        return json;
+        String urlStr = "http://apis.data.go.kr/B551182/pubReliefHospService/getpubReliefHospList?" +
+                "ServiceKey=x7h3QsoSTvqMkdINB49pnMFwFob%2BGJk5XPJPBNLtTt3GErqxwAHg%2F2Au%2FgUlIA%2FKcjlrK%2BbhRPRJI7AJnGh5Ag%3D%3D";
+        StringBuffer result = makeUrlConnection(urlStr);
+        return xmlToJson(result);
     }
 }
