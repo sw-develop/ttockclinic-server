@@ -23,8 +23,7 @@ public class UrlService {
         JSONObject jObject = XML.toJSONObject(xml);
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
-        Object json = mapper.readValue(jObject.toString(), Object.class);
-        return json;
+        return mapper.readValue(jObject.toString(), Object.class);
     }
 
     public StringBuffer makeUrlConnection(String urlStr){
