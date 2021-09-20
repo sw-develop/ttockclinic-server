@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
+@CrossOrigin("http://localhost:19006")
 @RequestMapping("/v1")
 @RestController
 @AllArgsConstructor
