@@ -23,6 +23,11 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
+	//JSON in Java
+	implementation group: 'org.json', name: 'json', version: '20210307'
+	//Jackson Databind
+	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.12.5'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	//JUnit4 추가
 	testImplementation("org.junit.vintage:junit-vintage-engine"){

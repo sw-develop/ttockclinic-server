@@ -1,6 +1,7 @@
 package com.ewhaenonymous.ttockclinic.controller;
 
 import com.ewhaenonymous.ttockclinic.service.UrlService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,14 +17,14 @@ public class UrlController {
     private UrlService urlService;
 
     @GetMapping("/covid-url")
-    public ResponseEntity<?> covidUrl(){
-        urlService.covidApi();
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<?> covidUrl() throws JsonProcessingException {
+        Object json = urlService.covidApi();
+        return new ResponseEntity<>(json, HttpStatus.OK);
     }
 
     @GetMapping("/clinic-url")
-    public ResponseEntity<?> clinicUrl(){
-        urlService.clinicApi();
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<?> clinicUrl() throws JsonProcessingException {
+        Object json = urlService.clinicApi();
+        return new ResponseEntity<>(json, HttpStatus.OK);
     }
 }

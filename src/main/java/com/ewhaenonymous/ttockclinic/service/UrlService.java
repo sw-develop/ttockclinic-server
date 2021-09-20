@@ -1,6 +1,11 @@
 package com.ewhaenonymous.ttockclinic.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.RequiredArgsConstructor;
+import org.json.JSONObject;
+import org.json.XML;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -13,7 +18,7 @@ import java.net.URL;
 @Transactional
 @RequiredArgsConstructor
 public class UrlService {
-    public void covidApi(){
+    public Object covidApi() throws JsonProcessingException {
         StringBuffer result = new StringBuffer();
         try{
             String urlstr = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson?" +
@@ -34,10 +39,16 @@ public class UrlService {
         catch(Exception e){
             e.getMessage();
         }
-        System.out.println(result);
+        //System.out.println(result);
+        String xml = result.toString();
+        JSONObject jObject = XML.toJSONObject(xml);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        Object json = mapper.readValue(jObject.toString(), Object.class);
+        return json;
     }
 
-    public void clinicApi(){
+    public Object clinicApi() throws JsonProcessingException {
         StringBuffer result = new StringBuffer();
         try{
             String urlstr = "http://apis.data.go.kr/B551182/pubReliefHospService/getpubReliefHospList?" +
@@ -56,6 +67,12 @@ public class UrlService {
         catch(Exception e){
             e.getMessage();
         }
-        System.out.println(result);
+        //System.out.println(result);
+        String xml = result.toString();
+        JSONObject jObject = XML.toJSONObject(xml);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        Object json = mapper.readValue(jObject.toString(), Object.class);
+        return json;
     }
 }
