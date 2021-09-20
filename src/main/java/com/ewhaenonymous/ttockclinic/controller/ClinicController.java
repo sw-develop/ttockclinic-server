@@ -28,8 +28,11 @@ public class ClinicController {
     }
 
     @GetMapping("/clinics/waitings")
-    public ResponseEntity<?> returnWaitings(@RequestBody @Valid GetClinicRequest clinicRequest){
-        ClinicResponse clinicResponse = clinicService.returnWaiting(clinicRequest.getLatitude(), clinicRequest.getLongitude());
+    public ResponseEntity<?> returnWaitings(
+            @RequestParam(value = "latitude") String latitude,
+            @RequestParam(value = "longitude") String longitude
+    ){
+        ClinicResponse clinicResponse = clinicService.returnWaiting(latitude, longitude);
         return new ResponseEntity<>(clinicResponse, HttpStatus.OK);
     }
 }
