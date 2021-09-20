@@ -29,12 +29,13 @@ public class UrlService {
 
         Date dateObj = calendar.getTime();
         calendar.add(Calendar.DATE, -1);
-        String t_Date = dtf.format(dateObj);
+        String t_date = dtf.format(dateObj);
         String y_date = dtf.format(calendar.getTime());
+
         try{
             String urlstr = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson?" +
                     "serviceKey=x7h3QsoSTvqMkdINB49pnMFwFob%2BGJk5XPJPBNLtTt3GErqxwAHg%2F2Au%2FgUlIA%2FKcjlrK%2BbhRPRJI7AJnGh5Ag%3D%3D" +
-                    "&pageNo=2" + "&startCreateDt=" + y_date + "&startCreateDt=" + t_Date;
+                    "&pageNo=1" + "&startCreateDt=" + y_date + "&endCreateDt=" + t_date;
 
             URL url = new URL(urlstr);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
