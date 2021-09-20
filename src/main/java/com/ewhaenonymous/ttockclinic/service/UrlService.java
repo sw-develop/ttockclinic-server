@@ -14,15 +14,28 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class UrlService {
     public Object covidApi() throws JsonProcessingException {
         StringBuffer result = new StringBuffer();
+        SimpleDateFormat dtf = new SimpleDateFormat("yyyyMMdd");
+        Calendar calendar = Calendar.getInstance();
+
+        Date dateObj = calendar.getTime();
+        calendar.add(Calendar.DATE, -1);
+        String t_Date = dtf.format(dateObj);
+        String y_date = dtf.format(calendar.getTime());
         try{
             String urlstr = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson?" +
-                    "serviceKey=x7h3QsoSTvqMkdINB49pnMFwFob%2BGJk5XPJPBNLtTt3GErqxwAHg%2F2Au%2FgUlIA%2FKcjlrK%2BbhRPRJI7AJnGh5Ag%3D%3D";
+                    "serviceKey=x7h3QsoSTvqMkdINB49pnMFwFob%2BGJk5XPJPBNLtTt3GErqxwAHg%2F2Au%2FgUlIA%2FKcjlrK%2BbhRPRJI7AJnGh5Ag%3D%3D" +
+                    "&pageNo=2" + "&startCreateDt=" + y_date + "&startCreateDt=" + t_Date;
+
             URL url = new URL(urlstr);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
