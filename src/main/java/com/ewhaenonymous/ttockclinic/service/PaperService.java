@@ -1,5 +1,6 @@
 package com.ewhaenonymous.ttockclinic.service;
 
+import com.ewhaenonymous.ttockclinic.ClinicRepository;
 import com.ewhaenonymous.ttockclinic.domain.Clinic;
 import com.ewhaenonymous.ttockclinic.domain.Paper;
 import com.ewhaenonymous.ttockclinic.exception.DuplicatedUserException;
@@ -39,7 +40,8 @@ public class PaperService {
     }
 
     public Paper paperRequestToEntity(CreatePaperRequest paperRequest){
-        Clinic clinic = clinicRepository.findById(paperRequest.getClinicId());
+        Clinic clinic = clinicRepository.findById(paperRequest.getClinicId())
+                .orElseThrow(() -> new ResourceNotFoundException("Clinic", "id", paperRequest.getClinicId()));
         return Paper.builder()
                 .name(paperRequest.getName())
                 .phone(paperRequest.getPhone())
@@ -78,7 +80,7 @@ public class PaperService {
 
     public void validateUserByDate(Paper paper){
         LocalDate today = LocalDate.now();
-        if(paper.getDate() != today){
+        if(paper.getDate().isEqual(today)){
             paper.setDeleted("Y");
         }
     }
@@ -86,8 +88,7 @@ public class PaperService {
     @Transactional
     public PaperResponse updateQrUsageCount(UpdatePaperRequest paperRequest){
         validateUserByDate(findPaperById(paperRequest.getId()));
-        validateUserByIdAndDeleted(paperRequest.getId(), findPaperById(paperRequest.getId()).getDeleted());
-
+        validateUserByIdAndDeleted(paperRequest.getId(), paperRequest.getDeleted());
         Paper paper = this.findPaperById(paperRequest.getId());
 
         validateQrByUsageCount(paper.getQrUsageCount());
