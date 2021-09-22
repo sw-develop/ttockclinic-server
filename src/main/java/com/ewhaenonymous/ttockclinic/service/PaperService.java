@@ -76,9 +76,18 @@ public class PaperService {
             throw new InvalidUserException(ResponseMessage.INVALID_USER);
     }
 
+    public void validateUserByDate(Paper paper){
+        LocalDate today = LocalDate.now();
+        if(paper.getDate() != today){
+            paper.setDeleted("Y");
+        }
+    }
+
     @Transactional
     public PaperResponse updateQrUsageCount(UpdatePaperRequest paperRequest){
         validateUserByIdAndDeleted(paperRequest.getId(), paperRequest.getDeleted());
+        validateUserByDate(findPaperById(paperRequest.getId()));
+
         Paper paper = this.findPaperById(paperRequest.getId());
 
         validateQrByUsageCount(paper.getQrUsageCount());
