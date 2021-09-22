@@ -1,6 +1,6 @@
 package com.ewhaenonymous.ttockclinic.controller;
 
-import com.ewhaenonymous.ttockclinic.ClinicService;
+import com.ewhaenonymous.ttockclinic.service.ClinicService;
 import com.ewhaenonymous.ttockclinic.payload.ClinicListResponse;
 import com.ewhaenonymous.ttockclinic.payload.ClinicResponse;
 import lombok.AllArgsConstructor;
