@@ -78,9 +78,9 @@ public class PaperService {
             throw new InvalidUserException(ResponseMessage.INVALID_USER);
     }
 
-    public void validateUserByDate(Paper paper){
+    public void validateUserByDate(Paper paper){    //날짜 유효성 검사
         LocalDate today = LocalDate.now();
-        if(paper.getDate().isEqual(today)){
+        if(!paper.getDate().isEqual(today)){
             paper.setDeleted("Y");
         }
     }
