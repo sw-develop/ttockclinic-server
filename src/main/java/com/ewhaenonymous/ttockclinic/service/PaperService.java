@@ -41,7 +41,7 @@ public class PaperService {
 
     public Paper paperRequestToEntity(CreatePaperRequest paperRequest){
         Clinic clinic = clinicRepository.findById(paperRequest.getClinicId())
-                .orElseThrow(() -> new ResourceNotFoundException("Clinic", "Id", null));
+                .orElseThrow(() -> new ResourceNotFoundException("Clinic", "id", paperRequest.getClinicId()));
         return Paper.builder()
                 .name(paperRequest.getName())
                 .phone(paperRequest.getPhone())
@@ -78,8 +78,16 @@ public class PaperService {
             throw new InvalidUserException(ResponseMessage.INVALID_USER);
     }
 
+    public void validateUserByDate(Paper paper){
+        LocalDate today = LocalDate.now();
+        if(paper.getDate().isEqual(today)){
+            paper.setDeleted("Y");
+        }
+    }
+
     @Transactional
     public PaperResponse updateQrUsageCount(UpdatePaperRequest paperRequest){
+        validateUserByDate(findPaperById(paperRequest.getId()));
         validateUserByIdAndDeleted(paperRequest.getId(), paperRequest.getDeleted());
         Paper paper = this.findPaperById(paperRequest.getId());
 
