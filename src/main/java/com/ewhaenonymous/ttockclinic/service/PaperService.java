@@ -10,6 +10,7 @@ import com.ewhaenonymous.ttockclinic.payload.ResponseMessage;
 import com.ewhaenonymous.ttockclinic.payload.request.CreatePaperRequest;
 import com.ewhaenonymous.ttockclinic.payload.request.UpdatePaperRequest;
 import com.ewhaenonymous.ttockclinic.payload.response.PaperResponse;
+import com.ewhaenonymous.ttockclinic.repository.ClinicRepository;
 import com.ewhaenonymous.ttockclinic.repository.PaperRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -39,7 +40,8 @@ public class PaperService {
     }
 
     public Paper paperRequestToEntity(CreatePaperRequest paperRequest){
-        Clinic clinic = clinicRepository.findById(paperRequest.getClinicId());
+        Clinic clinic = clinicRepository.findById(paperRequest.getClinicId())
+                .orElseThrow(() -> new ResourceNotFoundException("Clinic", "Id", null));
         return Paper.builder()
                 .name(paperRequest.getName())
                 .phone(paperRequest.getPhone())
