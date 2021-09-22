@@ -27,7 +27,7 @@ public class PaperController {
 
     @GetMapping("/paper") //여기 params로 고치기!
     public ResponseEntity<?> getPaper(@RequestBody @Valid GetPaperRequest paperRequest){
-        PaperResponse paperResponse = paperService.findPaperByPhoneAndNameAndDeleted(paperRequest.getPhone(), paperRequest.getName(), "N");
+        PaperResponse paperResponse = paperService.findPaperByPhoneAndDeleted(paperRequest.getPhone(), "N");
         return new ResponseEntity<>(paperResponse, HttpStatus.OK);
     }
 
