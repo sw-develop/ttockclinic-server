@@ -10,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Builder
-@Table(name="clinics")
+@Table(name="clinic")
 
 public class Clinic extends BaseTimeEntity{
     @Id
@@ -18,11 +18,26 @@ public class Clinic extends BaseTimeEntity{
     @Column(name = "clinic_id")
     private Long id;
 
-    @Column(name = "longitude", nullable = false)
-    private String longitude;
+    @Column(name = "si_do")
+    private String siDo;
 
-    @Column(name = "latitude", nullable = false)
-    private String latitude;
+    @Column(name = "si_gun_gu")
+    private String siGunGu;
+
+    private String name;
+
+    private String address;
+
+    @Column(name = "weekday_opening_hours")
+    private String weekdayOpeningHours;
+
+    @Column(name = "saturday_opening_hours")
+    private String saturdayOpeningHours;
+
+    @Column(name = "holiday_opening_hours")
+    private String holidayOpeningHours;
+
+    private String phone;
 
     @Builder.Default
     @Column(name = "waitings", nullable = false)
