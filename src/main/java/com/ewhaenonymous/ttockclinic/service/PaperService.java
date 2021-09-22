@@ -61,14 +61,14 @@ public class PaperService {
 
     @Transactional
     public void updateClinicWaitings(Clinic clinic, int qrUsageCount){
-        if(qrUsageCount == 1){ //현장예약 완료 - 대기자 수 증가 시키기
+        if(qrUsageCount == 1){ //현장접수 완료 - 대기자 수 증가 시키기
             clinic.setWaitings(clinic.getWaitings() + 1);
         }
         else if(qrUsageCount == 2){ //검사 완료 - 대기자 수 감소 시키기
-            if(clinic.getWaitings() != 0) //대기자 수가 0이 아닐 때
+            if(clinic.getWaitings() != 0)
                 clinic.setWaitings(clinic.getWaitings() - 1);
         }
-        clinicRepository.save(clinic);  //대기자수 저장
+        clinicRepository.save(clinic);
     }
 
     public void validateUserByIdAndDeleted(Long id, String deleted){
@@ -78,19 +78,15 @@ public class PaperService {
 
     @Transactional
     public PaperResponse updateQrUsageCount(UpdatePaperRequest paperRequest){
-        //추가사항: qr 유효성 처리가 아니라 전달된 id랑 삭제 여부를 동시에 만족하는 객체가 있는지에 대한 유효성 처리를 해줘야 함
-        //qr 유효성 처리는 어차피 앱(프론트)에서 1차적으로 해주니까 서버에서는 해당 객체가 실제 존재하는 애인지를 보면 됨
         validateUserByIdAndDeleted(paperRequest.getId(), paperRequest.getDeleted());
-
         Paper paper = this.findPaperById(paperRequest.getId());
 
+        validateQrByUsageCount(paper.getQrUsageCount());
         paper.setQrUsageCount(paper.getQrUsageCount() + 1);
         if (paper.getQrUsageCount() == 2){
             paper.setDeleted("Y");
         }
         Paper updatedPaper = paperRepository.save(paper);
-
-        //선별진료소 대기자 수 업데이트
         this.updateClinicWaitings(updatedPaper.getClinic(), updatedPaper.getQrUsageCount());
 
         return new PaperResponse(updatedPaper);
