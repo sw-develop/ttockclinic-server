@@ -1,10 +1,10 @@
 package com.ewhaenonymous.ttockclinic.service;
 
-import com.ewhaenonymous.ttockclinic.ClinicRepository;
+import com.ewhaenonymous.ttockclinic.repository.ClinicRepository;
 import com.ewhaenonymous.ttockclinic.domain.Clinic;
 import com.ewhaenonymous.ttockclinic.exception.ResourceNotFoundException;
-import com.ewhaenonymous.ttockclinic.payload.ClinicListResponse;
-import com.ewhaenonymous.ttockclinic.payload.ClinicResponse;
+import com.ewhaenonymous.ttockclinic.payload.response.ClinicListResponse;
+import com.ewhaenonymous.ttockclinic.payload.response.ClinicResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
