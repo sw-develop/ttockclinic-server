@@ -7,6 +7,7 @@ import com.ewhaenonymous.ttockclinic.exception.InvalidQrException;
 import com.ewhaenonymous.ttockclinic.exception.InvalidUserException;
 import com.ewhaenonymous.ttockclinic.exception.ResourceNotFoundException;
 import com.ewhaenonymous.ttockclinic.payload.ResponseMessage;
+import com.ewhaenonymous.ttockclinic.payload.request.CreatePaperRequest;
 import com.ewhaenonymous.ttockclinic.payload.request.UpdatePaperRequest;
 import com.ewhaenonymous.ttockclinic.payload.response.PaperResponse;
 import com.ewhaenonymous.ttockclinic.repository.PaperRepository;
@@ -37,19 +38,19 @@ public class PaperService {
             throw new DuplicatedUserException(ResponseMessage.DUPLICATED_USER);
     }
 
-    public Paper paperRequestToEntity(CreateClinicRequest clinicRequest){
-        Clinic clinic = clinicRepository.findById(clinicRequest.getId());
+    public Paper paperRequestToEntity(CreatePaperRequest paperRequest){
+        Clinic clinic = clinicRepository.findById(paperRequest.getClinicId());
         return Paper.builder()
-                .name(clinicRequest.getName())
-                .phone(clinicRequest.getPhone())
+                .name(paperRequest.getName())
+                .phone(paperRequest.getPhone())
                 .clinic(clinic)
                 .build();
     }
 
     @Transactional
-    public PaperResponse createNewPaper(CreateClinicRequest clinicRequest){
-        validateUnDuplicatedUser(clinicRequest.getPhone());
-        Paper paper = paperRepository.save(this.paperRequestToEntity(clinicRequest));
+    public PaperResponse createNewPaper(CreatePaperRequest paperRequest){
+        validateUnDuplicatedUser(paperRequest.getPhone());
+        Paper paper = paperRepository.save(this.paperRequestToEntity(paperRequest));
         return new PaperResponse(paper);
     }
 
