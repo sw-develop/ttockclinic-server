@@ -85,8 +85,8 @@ public class PaperService {
 
     @Transactional
     public PaperResponse updateQrUsageCount(UpdatePaperRequest paperRequest){
-        validateUserByIdAndDeleted(paperRequest.getId(), paperRequest.getDeleted());
         validateUserByDate(findPaperById(paperRequest.getId()));
+        validateUserByIdAndDeleted(paperRequest.getId(), findPaperById(paperRequest.getId()).getDeleted());
 
         Paper paper = this.findPaperById(paperRequest.getId());
 
