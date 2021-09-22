@@ -1,8 +1,8 @@
 package com.ewhaenonymous.ttockclinic.controller;
 
 import com.ewhaenonymous.ttockclinic.service.ClinicService;
-import com.ewhaenonymous.ttockclinic.payload.ClinicListResponse;
-import com.ewhaenonymous.ttockclinic.payload.ClinicResponse;
+import com.ewhaenonymous.ttockclinic.payload.response.ClinicListResponse;
+import com.ewhaenonymous.ttockclinic.payload.response.ClinicResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
