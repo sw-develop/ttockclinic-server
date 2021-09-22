@@ -5,9 +5,9 @@ import lombok.Getter;
 import javax.validation.constraints.NotNull;
 
 @Getter
-public class PostPaperRequest {
+public class CreatePaperRequest {
     @NotNull
-    private long id;
+    private long clinicId;
     @NotNull
     private String name;
     @NotNull
