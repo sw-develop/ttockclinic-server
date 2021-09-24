@@ -24,8 +24,8 @@ public class PaperService {
     private final PaperRepository paperRepository;
     private final ClinicRepository clinicRepository;
 
-    public PaperResponse findPaperByPhoneAndDeleted(String phone, String deleted){
-        return new PaperResponse(paperRepository.findByPhoneAndDeleted(phone, deleted)
+    public PaperResponse findPaperByPhoneAndNameAndDeleted(String phone, String name, String deleted){
+        return new PaperResponse(paperRepository.findByPhoneAndNameAndDeleted(phone, name, deleted)
                 .orElseThrow(() -> new ResourceNotFoundException("Paper", "phone, name, deleted", null)));
     }
 
