@@ -2,15 +2,20 @@ version: '3.8'
 services:
   app:
     container_name: ttockclinic-app
+    environment:
+      TZ: "Asia/Seoul"
     restart: always
     build:
       context: .
     expose:
       - "8080"
 
+
   nginx:
     container_name: ttockclinic-nginx
     image: nginx:1.15-alpine
+    environment:
+      TZ: "Asia/Seoul"
     restart: always
     ports:
     - 80:80
