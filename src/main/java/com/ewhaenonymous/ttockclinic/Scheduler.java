@@ -19,4 +19,13 @@ public class Scheduler {
             p.setDeleted("Y");
         }
     }
+
+    @Scheduled(cron = "0 30 1 * * *")	// 매일 00시 정각마다 db 삭제
+    public void setDeletedYesForPaper() throws Exception {
+        Stack<Paper> paperStack = paperRepository.findByDeleted("N");
+        while(!paperStack.isEmpty()){
+            Paper p = paperStack.pop();
+            p.setDeleted("Y");
+        }
+    }
 }
