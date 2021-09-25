@@ -12,7 +12,7 @@ import java.util.Stack;
 public class Scheduler {
     PaperRepository paperRepository;
     @Scheduled(cron = "0 0 0 * * *")	// 매일 00시 정각마다 db 삭제
-    public void deleteData() throws Exception {
+    public void deleteData() {
         Stack<Paper> paperStack = paperRepository.findByDeleted("N");
         while(!paperStack.isEmpty()){
             Paper p = paperStack.pop();
@@ -21,7 +21,7 @@ public class Scheduler {
     }
 
     @Scheduled(cron = "0 30 1 * * *")	// 매일 00시 정각마다 db 삭제
-    public void setDeletedYesForPaper() throws Exception {
+    public void setDeletedYesForPaper() {
         Stack<Paper> paperStack = paperRepository.findByDeleted("N");
         while(!paperStack.isEmpty()){
             Paper p = paperStack.pop();
