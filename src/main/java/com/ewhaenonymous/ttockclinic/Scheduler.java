@@ -13,28 +13,16 @@ import java.util.Stack;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-@Service
 public class Scheduler {
 
     private final PaperRepository paperRepository;
     @Scheduled(cron = "0 0 0 * * *")	// 매일 00시 정각마다 db 삭제
-    public void deleteData() {
+    public void deletePaper() {
         Stack<Paper> paperStack = paperRepository.findByDeleted("N");
         while(!paperStack.isEmpty()){
             Paper p = paperStack.pop();
             p.setDeleted("Y");
-        }
-    }
-
-    @Scheduled(cron = "0 38 1 * * *")	// test
-    public void setDeletedYesForPaper() {
-        Stack<Paper> paperStack = paperRepository.findByDeleted("N");
-
-        System.out.println(paperStack);
-
-        while(!paperStack.isEmpty()){
-            Paper p = paperStack.pop();
-            p.setDeleted("Y");
+            paperRepository.save(p);
         }
     }
 }
